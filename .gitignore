@@ -62,4 +62,8 @@ typings/
 
 # Terraform
 terraform/.terraform/
-*.lock.hcl
+terraform-state-bucket/.terraform/
+# *.lock.hcl
+
+#GKE
+kubeconfig*
