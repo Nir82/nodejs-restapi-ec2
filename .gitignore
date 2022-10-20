@@ -67,3 +67,4 @@ terraform-state-bucket/.terraform/
 
 #GKE
 kubeconfig*
+keys/

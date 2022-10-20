@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-web-app
+  namespace: cycode
+  labels:
+    app: users-web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-web-app
+  template:
+    metadata:
+      labels:
+        app: users-web-app
+    spec:
+      containers:
+      - name: users-web-app
+        #
+        image: europe-west2-docker.pkg.dev/cycode-home-assignment/docker-ar-dev/users-web-app:1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: db-uri-configmap
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-web-app
+  namespace: cycode
+spec:
+  selector:
+    app: users-web-app
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: 3000
+  type: ClusterIP

@@ -45,3 +45,16 @@ variable "ip_range_services_name" {
   default = "ip-range-services"
   description = "The secondary ip range to use for services"
 }
+
+variable "ssh_user" {
+  description = "The user that Administrator will use"
+  default     = "root"
+}
+
+variable "key_pairs" {
+  type = map
+  default = {
+    root_public_key  = "/home/nivan/Desktop/Projects/Cycode/nir-ivan-local/keys/root_id_ed25519.pub",
+    root_private_key = "/home/nivan/Desktop/Projects/Cycode/nir-ivan-local/keys/root_id_ed25519"
+  }
+}

@@ -75,3 +75,21 @@ module "gke" {
     },
   ]
 }
+
+resource "google_compute_firewall" "ssh-rule" {
+  depends_on   = [module.gke]
+  name = "ssh"
+  network  = "${var.network}-${var.env_name}"
+  project  = "${var.project_id}"
+  allow {
+    protocol = "tcp"
+    ports = ["22"]
+  }
+  source_ranges = ["0.0.0.0/0"]
+}
+resource "google_compute_project_metadata" "ansible_ssh_key" {
+  project = var.project_id
+  metadata = {
+    ssh-keys = "${var.ssh_user}:${file(var.key_pairs["root_public_key"])}"
+  }
+}
